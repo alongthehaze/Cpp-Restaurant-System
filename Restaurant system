@@ -1,0 +1,115 @@
+#include<iostream>
+using namespace std;
+class StudentAccount {
+private:
+	string name;
+	string ID;
+	double balance;
+public:
+	StudentAccount() {
+		name = "Ahmed Ali";
+		ID = "057-SE-21";
+		balance = 2000.0;
+	}
+	void bal(double amount) {
+		if (balance >= amount) {
+			balance -= amount;
+		}
+		else
+			cout << "Insufficient balance." << endl;
+	}
+	double getbal() {
+		return balance;
+	}
+	void showdata() {
+		cout << "Current status of Ahmed's account: " << endl;
+		cout << "Total balance is Rs.2000" << endl;
+		cout << "		Name: " << name << endl;
+		cout << "		ID: " << ID << endl;
+		cout << "		Remaining balance: " << balance << endl;
+
+	}
+};
+
+
+class MealBill {
+private:
+	string resname;
+	double mealcost, tax,tip, totalcost, payment, change;
+public:
+	MealBill() {
+		resname = "University Summit";
+		tax = 0.6;
+	}
+	double getmealcost() {
+		return mealcost;
+	}
+	void setmealcost(double mc){
+		mealcost = mc;
+	}
+	double getpayment() {
+		return payment;
+	}
+	void setpayment(double p) {
+		if (p > 0.0)
+			payment = p;
+		else
+			payment = 0.0;
+	}
+	double gettip() {
+		return tip;
+	}
+	void settip(double t) {
+		tip =t;
+	}
+	double getchange() {
+		return change;
+	}
+	double gettotalcost() {
+		totalcost = (getmealcost() + (getmealcost() * tax) + gettip());
+		return totalcost;
+	}
+	void setchange(double p) {
+		if (p >= totalcost)
+			change = p - totalcost;
+	}
+
+	void showbill() {
+		cout << "Bill" << endl;
+		cout << "		Meal cost: Rs." << getmealcost() << endl;
+		cout << "		Tax: Rs." << getmealcost() * tax << endl;
+		cout << "		Tip: Rs." << gettip() << endl;
+		cout << "		Total cost: Rs." << gettotalcost() <<endl<< endl;
+	}
+	void showreceipt() {
+		cout << "Receipt" << endl;
+		cout << "		Total cost: Rs." <<gettotalcost() << endl;
+		cout << "		Payment: Rs." << getpayment() << endl;
+		cout << "		Change: Rs." << getchange() << endl;
+		cout << "Thank You for dining at "<<resname << endl<<endl;
+	}
+};
+int main() {
+	MealBill m1;
+	StudentAccount AhmedAli;
+	double meal_cost = 0.0;
+	double meal_pay = 0.0;
+	cout << "Enter meal cost: Rs.";
+	cin >> meal_cost;
+	m1.setmealcost(meal_cost);
+	m1.settip(10);
+	m1.showbill();
+	cout<<endl << "Enter meal payment: Rs.";
+	cin >> meal_pay;
+	if (meal_pay >= meal_cost) {
+		m1.setpayment(meal_pay);
+		m1.setchange(meal_pay);
+		AhmedAli.bal(m1.gettotalcost());
+		m1.showreceipt();
+		AhmedAli.showdata();
+	}
+	else
+		cout << "Insufficient amount" << endl;
+	
+	return 0;
+}
